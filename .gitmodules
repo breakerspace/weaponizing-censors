@@ -1,0 +1,8 @@
+[submodule "zmap_multiple_probes"]
+	path = zmap_multiple_probes
+	url = https://github.com/Kkevsterrr/zmap
+    branch = multiple_probes
+[submodule "zmap_single_probe"]
+	path = zmap
+	url = https://github.com/Kkevsterrr/zmap
+    branch = master
