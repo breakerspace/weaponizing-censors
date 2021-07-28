@@ -6,3 +6,6 @@
 	path = zmap
 	url = https://github.com/Kkevsterrr/zmap
     branch = master
+[submodule "geneva"]
+	path = geneva
+	url = https://github.com/Kkevsterrr/geneva/
