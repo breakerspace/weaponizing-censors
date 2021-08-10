@@ -1,10 +1,12 @@
 # weaponizing-censors [![badge](https://img.shields.io/badge/In%20Proceedings-USENIX%20Security%202021-blue.svg)](https://www.usenix.org/conference/usenixsecurity21/presentation/bock)
 
-Censors pose a threat to the entire Internet.
+Censors pose a threat to the entire Internet. In this work, we show that censoring middleboxes and firewalls can be weaponized by attackers to launch unprecedented reflected denial of service attacks. We find hundreds of thousands of IP addresses that offer amplification factors greater than 100× and IP addresses that technically offer _infinite amplification_. 
 
-Code repository for the USENIX Security 2021 paper, "Weaponizing Middleboxes for TCP Reflected Amplification". 
+This is the code repository for the USENIX Security 2021 paper, "[Weaponizing Middleboxes for TCP Reflected Amplification](https://geneva.cs.umd.edu/papers/usenix-weaponizing-ddos.pdf)". 
 
 This repository contains submodules for our two forks of ZMap, a submodule to the main [Geneva](https://github.com/Kkevsterrr/geneva) repository containing the plugin used to identify the amplifying sequences, and processing scripts for analyzing scan results.  
+
+Amplification attacks are not the only way that censors pose a threat to those living outside their borders. See our concurrent work from WOOT 2021 on [weaponizing censors for availability attacks](https://geneva.cs.umd.edu/papers/woot21-weaponizing-availability.pdf) and it's [code repository](https://github.com/breakerspace/weaponizing-residual-censorship/). 
 
 ## 📝 Abstract
 
@@ -31,11 +33,13 @@ $ cmake . && make -j4  && sudo src/zmap -M forbidden_scan -p 80 $IP/32 -f "saddr
 
 The output of the scan is a csv file called `scan.csv`. For each packet that ZMap identified as a response to our scan, the output file will contain the `src` IP address, the IP length of the packet, the length of the payload itself, the TCP flags, and the _validation_type_ (the reason the probe treated the incoming packet as a response to a probe). 
 
-Included in this repsitory is a helper script `scan_all.py`, which can be used to automate multiple ZMap scans. 
+This module can be used to test firewalls or other middleboxes to see if they are vulnerable to this attack. 
+
+Also in this repsitory is a helper script `scan_all.py`, which can be used to automate multiple ZMap scans with different scanning parameters.  
 
 ## 🔬 Processing Scan Results
 
-Included in this repository are two helper scripts to process the results of a ZMap scan. The main processing script is `stats.py`, which will consume the output of ZMap and generate graphs and summary statistics about the scan. 
+Included in this repository are two helper scripts to process the results of a ZMap scan. The main processing script is `stats.py`, which will consume the output of ZMap and generate graphs and summary statistics about the scan. See the below example of the `stats.py` script processing a `scan.csv` file (note the IP addresses have been anonymized). 
 
 ```    
 # python3 stats.py scan.csv 149
@@ -83,3 +87,7 @@ Calculating total length of file to analyze:
 ## 📃 License
 
 No license is included in this repository, since this repository is largely just a pointer to other repositories. Each of those other repositories contains its own license - please consult each for license information. 
+
+## 📑 Citation
+
+To cite this paper, please use the Bibtex [here](https://www.usenix.org/biblio/export/bibtex/272318).
