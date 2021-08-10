@@ -6,7 +6,7 @@ This is the code repository for the USENIX Security 2021 paper, "[Weaponizing Mi
 
 This repository contains submodules for our two forks of ZMap, a submodule to the main [Geneva](https://github.com/Kkevsterrr/geneva) repository containing the plugin used to identify the amplifying sequences, and processing scripts for analyzing scan results.  
 
-Amplification attacks are not the only way that censors pose a threat to those living outside their borders. See our concurrent work from WOOT 2021 on [weaponizing censors for availability attacks](https://geneva.cs.umd.edu/papers/woot21-weaponizing-availability.pdf) and it's [code repository](https://github.com/breakerspace/weaponizing-residual-censorship/). 
+Amplification attacks are not the only way that censors pose a threat to those living outside their borders. See our concurrent work from WOOT 2021 on [weaponizing censors for availability attacks](https://geneva.cs.umd.edu/papers/woot21-weaponizing-availability.pdf) and its [repository](https://github.com/breakerspace/weaponizing-residual-censorship/). 
 
 ## 📝 Abstract
 
