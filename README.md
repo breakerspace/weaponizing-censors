@@ -1,4 +1,4 @@
-# weaponizing-censors [![badge](https://img.shields.io/badge/In%20Proceedings-USENIX%20Security%202021-green.svg)](https://www.usenix.org/conference/usenixsecurity21/presentation/bock)
+# weaponizing-censors [![badge](https://img.shields.io/badge/In%20Proceedings-USENIX%20Security%202021-blue.svg)](https://www.usenix.org/conference/usenixsecurity21/presentation/bock)
 
 Censors pose a threat to the entire Internet. In this work, we show that censoring middleboxes and firewalls can be weaponized by attackers to launch unprecedented reflected denial of service attacks. We find hundreds of thousands of IP addresses that offer amplification factors greater than 100× and IP addresses that technically offer _infinite amplification_. 
 
