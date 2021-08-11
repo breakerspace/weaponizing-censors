@@ -86,7 +86,7 @@ Calculating total length of file to analyze:
 
 ## 📃 License
 
-No license is included in this repository, since this repository is largely just a pointer to other repositories. Each of those other repositories contains its own license - please consult each for license information. 
+This repository is licensed under BSD 3-Clause license. Please note that this repository contains multiple submodule pointers to other repositories, each of which contains its own license. Please consult each for license information. 
 
 ## 📑 Citation
 
