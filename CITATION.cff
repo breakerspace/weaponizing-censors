@@ -17,19 +17,3 @@ title: "Weaponizing Middleboxes for TCP Reflected Amplification"
 version: 1
 date-released: 2021-08-13
 url: "https://github.com/breakerspace/weaponizing-censors"
-preferred-citation:
-  type: article
-  authors:
-  - family-names: "Bock"
-    given-names: "Kevin"
-  - family-names: "Alaraj"
-    given-names: "Abdulrahman"
-  - family-names: "Fax"
-    given-names: "Yair"
-  - family-names: "Hurley"
-    given-names: "Kyle"
-  - family-names: "Wustrow"
-    given-names: "Eric"
-  - family-names: "Levin"
-    given-names: "Dave"
-  year: 2021
