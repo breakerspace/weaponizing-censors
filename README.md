@@ -14,6 +14,16 @@ Reflective amplification attacks are a powerful tool in the arsenal of a DDoS at
 
 We scanned the entire IPv4 Internet to measure how many IP addresses permit reflected amplification. We find hundreds of thousands of IP addresses that offer amplification factors greater than 100×. Through our Internet-wide measurements, we explore several open questions regarding DoS attacks, including the root cause of so-called "mega amplifiers". We also report on network phenomena that causes some of the TCP-based attacks to be so effective as to technically have _infinite_ amplification factor (after the attacker sends a constant number of bytes, the reflector generates traffic indefinitely). 
 
+## 🧪 Try it yourself
+
+To clone the repo, make sure you clone all of the submodules present.
+
+```
+# git clone --recursive https://github.com/breakerspace/weaponizing-censors
+```
+
+Disclaimer: this code will intentionally try to trigger real censoring middleboxes and can generate large volumes of traffic (both on its own, and with the presence of amplifiers). Understand the risks of running it in your network before doing so. 
+
 ## 🕵️‍♀️ Finding Amplifiers: ZMap Forks
 
 We scanned the entire IPv4 Internet dozens of times to find IP addresses with middleboxes on their path that could be weaponized. To find these, we created two custom forks of the open-source scanning tool [`ZMap`](https://github.com/zmap/zmap). ZMap is a fast single packet network scanner designed for Internet-wide network surveys. We modified ZMap first to add a new probe module (the `forbidden_scan` module defined in `src/probe_modules/module_forbidden_scan.c`), and then created a second fork to add the ability to craft two distinct packets for each probe (this enables us to send a custom `SYN` packet, followed by a second custom packet containing a well-formed HTTP `GET` request). 
