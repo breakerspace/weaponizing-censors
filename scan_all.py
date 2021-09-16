@@ -3,8 +3,8 @@ Helper script for automating multiple scans back to back.
 """
 
 import os
-import time
 import sys
+import time
 
 # Coverage guided list of domains (not in order)
 hosts = [
@@ -35,7 +35,7 @@ try:
         time.sleep(1)
         os.system("mv src/probe_modules/.backup src/probe_modules/module_forbidden_scan.c")
         time.sleep(1)
-        os.system("cmake . && make -j4 && sudo src/zmap -M forbidden_scan -p 80 -f \"saddr,len,payloadlen,flags,validation_type\" -o %s/%s_%s.csv -O csv -B 350M" % (path, config, host))
+        os.system(f"cmake . && make -j4 && sudo src/zmap -M forbidden_scan -p 80 -f \"saddr,len,payloadlen,flags,validation_type\" -o {path}/{config}_{host}.csv -O csv -B 350M")
         print("Scan for %s finished" % host)
         print("Sleeping for 60 seconds before next scan.")
         time.sleep(60)

@@ -93,7 +93,7 @@ def dprint(msg, **kwargs):
 
 
 if not os.path.exists("%s_sorted_by_ip.csv" % basename):
-    run_cmd("sort -k1,1 -t\",\" %s --parallel 4 > %s_sorted_by_ip.csv" % (testfile, basename))
+    run_cmd(f"sort -k1,1 -t\",\" {testfile} --parallel 4 > {basename}_sorted_by_ip.csv")
 else:
     print("%s_sorted_by_ip.csv already exists, skipping regeneration" % basename)
 
@@ -116,38 +116,35 @@ dprint("  - Average amplification rate from amplifying IP addresses: %f" % round
 
 dprint("  - Highest total data received by IP: ")
 if not os.path.exists("%s_total_by_ip_bytes.txt" % basename):
-    run_cmd("sort -k1 -n --parallel 4 %s_sorted_by_ip_total_by_ip.txt > %s_total_by_ip_bytes.txt" % (basename, basename))
+    run_cmd(f"sort -k1 -n --parallel 4 {basename}_sorted_by_ip_total_by_ip.txt > {basename}_total_by_ip_bytes.txt")
 dprint(run_cmd("tail %s_total_by_ip_bytes.txt" % basename).decode('utf-8').strip())
 
 if not os.path.exists("%s_total_by_ip_bytes_reverse.txt" % basename):
-    run_cmd("sort -nrk1 --parallel 4 %s_total_by_ip_bytes.txt > %s_total_by_ip_bytes_reverse.txt" % (basename, basename))
+    run_cmd(f"sort -nrk1 --parallel 4 {basename}_total_by_ip_bytes.txt > {basename}_total_by_ip_bytes_reverse.txt")
 
 dprint("  - Highest total packets received by IP: ")
 if not os.path.exists("%s_total_by_ip_packets.txt" % basename):
-    run_cmd("sort -k3 -n --parallel 4 %s_sorted_by_ip_total_by_ip.txt > %s_total_by_ip_packets.txt" % (basename, basename))
+    run_cmd(f"sort -k3 -n --parallel 4 {basename}_sorted_by_ip_total_by_ip.txt > {basename}_total_by_ip_packets.txt")
 dprint(run_cmd("tail %s_total_by_ip_packets.txt" % basename).decode('utf-8').strip())
 
 #if not os.path.exists("%s_total_by_amplifying_ips_sorted" % basename):
 #    run_cmd("cat %s_total_by_ip_bytes.txt | awk '{if ($1 > %d) {print}}' > %s_total_by_amplifying_ips_sorted.txt" % (basename, sent_len, basename))
 
 dprint("  - Flags on packets sent by responders: ")
-for flag in info["flags"]:
-    count = info["flags"][flag]
+for flag, count in info["flags"].items():
     if flag == "flags":
         continue
-    flag = int(flag)
-    f = str(TCP(flags=flag).flags)
-    dprint("    + %s: %s" % (count, f))
+    dprint(f"    + {count}: {TCP(flags=int(flag)).flags}")
 
 dprint("  - CDF of number of packets sent: ", end="")
-plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_packets_cdf.eps'; set xlabel \\\"\{/Helvetica-Bold Packets Sent\}\\\"; set ylabel \\\"\{/Helvetica-Bold Cumulative Fraction of Hosts\}\\\"; set logscale x; plot '%s_total_by_ip_packets.txt' u 3:(\$0/%d) w st ls 1 ti ''\"" % (basename, basename, total_ips)
+plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_packets_cdf.eps'; set xlabel \\\"\\{/Helvetica-Bold Packets Sent\\}\\\"; set ylabel \\\"\\{/Helvetica-Bold Cumulative Fraction of Hosts\\}\\\"; set logscale x; plot '%s_total_by_ip_packets.txt' u 3:(\\$0/%d) w st ls 1 ti ''\"" % (basename, basename, total_ips)
 run_cmd(plot_cmd)
 dprint("%s_packets_cdf.eps" % basename)
 dprint("  - CDF of bytes sent: ", end="")
-plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_bytes_cdf.eps'; set xlabel \\\"\{/Helvetica-Bold Bytes Sent\}\\\"; set ylabel \\\"\{/Helvetica-Bold Cumulative Fraction of Hosts\}\\\"; set logscale x; plot '%s_total_by_ip_bytes.txt' u 1:(\$0/%d) w st ls 1 ti ''\"" % (basename, basename, total_ips)
+plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_bytes_cdf.eps'; set xlabel \\\"\\{/Helvetica-Bold Bytes Sent\\}\\\"; set ylabel \\\"\\{/Helvetica-Bold Cumulative Fraction of Hosts\\}\\\"; set logscale x; plot '%s_total_by_ip_bytes.txt' u 1:(\\$0/%d) w st ls 1 ti ''\"" % (basename, basename, total_ips)
 run_cmd(plot_cmd)
 dprint("%s_bytes_cdf.eps" % basename)
 dprint("  - CDF of amplification rate: ", end="")
-plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_amplification_cdf.eps'; set xlabel \\\"\{/Helvetica-Bold Amplification Rate\}\\\"; set ylabel \\\"\{/Helvetica-Bold Cumulative Fraction of Hosts\}\\\"; set logscale x; plot '%s_total_by_ip_bytes.txt' u (\$1/%d):(\$0/%d) w st ls 1 ti ''\"" % (basename, basename, sent_len, total_ips)
+plot_cmd = "gnuplot -e \"load 'style.gnu'; set output '%s_amplification_cdf.eps'; set xlabel \\\"\\{/Helvetica-Bold Amplification Rate\\}\\\"; set ylabel \\\"\\{/Helvetica-Bold Cumulative Fraction of Hosts\\}\\\"; set logscale x; plot '%s_total_by_ip_bytes.txt' u (\\$1/%d):(\\$0/%d) w st ls 1 ti ''\"" % (basename, basename, sent_len, total_ips)
 run_cmd(plot_cmd)
 dprint("%s_amplification_cdf.eps" % basename)

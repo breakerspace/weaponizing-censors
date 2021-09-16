@@ -2,11 +2,10 @@
 Helper processing script for processing scan files
 """
 
-import os
-import tqdm
-import sys
 import argparse
 import subprocess as sp
+
+import tqdm
 
 
 def get_len(f):
@@ -35,7 +34,7 @@ def process_file(args):
     print("%d total packets to analyze." % length)
     pbar = tqdm.tqdm(total=length, leave=False)
     d = args["delimeter"]
-    with open(to_analyze, "r") as fd:
+    with open(to_analyze) as fd:
         line = fd.readline()
         ip, length, _, _, _ = line.split(d)
         out_file = to_analyze.replace(".csv", "") + "_total_by_ip.txt"
